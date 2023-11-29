@@ -17,14 +17,17 @@ local_repository(
     path = "bssl-compat",
 )
 
-# NOTE: Whenever the version of envoy is changed here, the files under the top
-# level envoy directory must also be re-copied from the new envoy version.
+ENVOY_ORG = "envoyproxy"
+ENVOY_REPO = "envoy"
+ENVOY_COMMIT = "28558ba9b968b8508ceaef38693bea7e9ae11cf5"
+ENVOY_SHA256 = "0993320667102ea1a6ed0cad697b7fe7da956a965647ea9d78f5f1b8b1ca21c4"
+
 load("//:bazel/http_archive_with_overwrites.bzl", "http_archive_with_overwrites")
 http_archive_with_overwrites(
-    name = "envoy",
-    url = "https://github.com/envoyproxy/envoy/archive/refs/tags/v1.26.3.zip",
-    sha256 = "8d4c99886ae0698c52fdf64b30603354010d2ca991e85fbef5082010ef6110ad",
-    strip_prefix = "envoy-1.26.3",
+    name = ENVOY_REPO,
+    sha256 = ENVOY_SHA256,
+    strip_prefix = ENVOY_REPO + "-" + ENVOY_COMMIT,
+    url = "https://github.com/" + ENVOY_ORG + "/" + ENVOY_REPO + "/archive/" + ENVOY_COMMIT + ".tar.gz",
     patch_args = [ "-p1" ],
     patches = [
         "//patch/envoy:bazel/repositories_extra.bzl.patch",
