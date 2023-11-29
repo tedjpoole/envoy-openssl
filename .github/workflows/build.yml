@@ -18,6 +18,9 @@ jobs:
       with:
         submodules: 'true'
 
+    - name: Upterm
+      uses: lhotari/action-upterm@v1
+
     - name: Prerequisites
       run: sudo apt install -y libclang-13-dev kcov
 
