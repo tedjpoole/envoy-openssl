@@ -25,6 +25,25 @@ Api::IoErrorPtr IoSocketError::getIoSocketEbadfError() {
   return Api::IoError::wrap(new IoSocketError(SOCKET_ERROR_BADF, Api::IoError::IoErrorCode::BadFd));
 }
 
+IoSocketError* IoSocketError::getIoSocketInvalidAddressInstance() {
+  static auto* instance =
+      new IoSocketError(SOCKET_ERROR_NOT_SUP, Api::IoError::IoErrorCode::NoSupport);
+  return instance;
+}
+
+IoSocketError* IoSocketError::getIoSocketEagainInstance() {
+  static auto* instance = new IoSocketError(SOCKET_ERROR_AGAIN, Api::IoError::IoErrorCode::Again);
+  return instance;
+}
+
+void IoSocketError::deleteIoError(Api::IoError* err) {
+  ASSERT(err != nullptr);
+  ASSERT(err != getIoSocketInvalidAddressInstance());
+  if (err != getIoSocketEagainInstance()) {
+    delete err;
+  }
+}
+
 Api::IoErrorPtr IoSocketError::getIoSocketEagainError() {
   static auto* instance = new IoSocketError(SOCKET_ERROR_AGAIN, Api::IoError::IoErrorCode::Again);
   return Api::IoError::reusedStatic(instance);
