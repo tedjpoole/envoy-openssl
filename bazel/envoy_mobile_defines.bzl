@@ -16,7 +16,6 @@ load(
 # Compute the defines needed for Envoy Mobile libraries that don't use Envoy's main library wrappers.
 def envoy_mobile_defines(repository):
     return envoy_select_admin_functionality(["ENVOY_ADMIN_FUNCTIONALITY"], repository) + \
-           envoy_select_enable_http3(["ENVOY_ENABLE_QUIC"], repository) + \
            envoy_select_enable_full_protos(["ENVOY_ENABLE_FULL_PROTOS"], repository) + \
            envoy_select_enable_yaml(["ENVOY_ENABLE_YAML"], repository) + \
            envoy_select_disable_exceptions(["ENVOY_DISABLE_EXCEPTIONS"], repository) + \
