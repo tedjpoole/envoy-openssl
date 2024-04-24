@@ -27,7 +27,8 @@
 #include "test/config/integration/certs/clientcert_hash.h"
 #include "test/config/integration/certs/servercert_info.h"
 #include "test/config/integration/certs/server2cert_info.h"
-#include "test/extensions/transport_sockets/tls/test_private_key_method_provider.h"
+// TODO (dmitri-d) private key providers are currently disabled under OpenSSL
+//#include "test/extensions/transport_sockets/tls/test_private_key_method_provider.h"
 #include "test/integration/http_integration.h"
 #include "test/integration/server.h"
 #include "test/integration/ssl_utility.h"
@@ -1120,6 +1121,10 @@ TEST_P(SdsCdsIntegrationTest, BasicSuccess) {
   test_server_->waitForGaugeEq("cluster_manager.active_clusters", 3);
 }
 
+//
+// TODO (dmitri-d) private key providers aren't available under OpenSSL
+//
+/*
 class SdsDynamicDownstreamPrivateKeyIntegrationTest : public SdsDynamicDownstreamIntegrationTest {
 public:
   envoy::extensions::transport_sockets::tls::v3::Secret getCurrentServerPrivateKeyProviderSecret() {
@@ -1257,6 +1262,6 @@ TEST_P(SdsCdsPrivateKeyIntegrationTest, DISABLED_BasicSdsCdsPrivateKeyProvider) 
   // Successfully removed the dynamic cluster.
   test_server_->waitForGaugeEq("cluster_manager.active_clusters", 3);
 }
-
+*/
 } // namespace Ssl
 } // namespace Envoy
